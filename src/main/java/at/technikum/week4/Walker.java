@@ -70,8 +70,8 @@ public class Walker {
     }
 
     private void drawField () {
-        for (int y = 0; y < 10; y++) {
-            for (int x = 0; x < 10; x++) {
+        for (int y = 0; y < FIELD_SIZE; y++) {
+            for (int x = 0; x < FIELD_SIZE; x++) {
                 if (x == currentX && y == currentY) {
                     System.out.print('X');
                 } else {
