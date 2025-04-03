@@ -12,10 +12,10 @@ import java.util.Locale;
 import java.util.Scanner;
 
 class Basics {
-    private static int MIN_DATE = 15821016;
-    private static int MAX_DATE = 21991231;
+    private static final int MIN_DATE = 15821016;
+    private static final int MAX_DATE = 21991231;
 
-    static boolean checkDate (int y, int m, int d) {
+    static boolean checkDate(int y, int m, int d) {
         if (y < 0 || m < 0 || d < 0 || m > 12 || d > 31) return false;
 
         String monthStr = m < 10 ? "0" + m : Integer.toString(m);
@@ -25,7 +25,8 @@ class Basics {
 
         return date >= MIN_DATE && date <= MAX_DATE;
     }
-    static boolean checkDate (int y, int m) {
+
+    static boolean checkDate(int y, int m) {
         if (y < 0 || m < 0 || m > 12) return false;
 
         String monthStr = m < 10 ? "0" + m : Integer.toString(m);
@@ -34,14 +35,15 @@ class Basics {
         return date >= MIN_DATE && date <= MAX_DATE;
     }
 
-    static boolean checkDate (int y) {
+    static boolean checkDate(int y) {
         return y >= Integer.parseInt(String.valueOf(MIN_DATE).substring(0, 4)) && y <= Integer.parseInt(String.valueOf(MAX_DATE).substring(0, 4));
     }
 
     public static boolean isLeap(int year) {
         return checkDate(year) && Year.isLeap(year);
     }
-    public static int daysInMonth (int year, int month) {
+
+    public static int daysInMonth(int year, int month) {
         if (checkDate(year, month)) {
             LocalDate ld = LocalDate.of(year, month, 1);
             return ld.lengthOfMonth();
@@ -51,7 +53,7 @@ class Basics {
 }
 
 class Calculations {
-    public static int ymd2w (int year, int month, int day) {
+    public static int ymd2w(int year, int month, int day) {
         if (!Basics.checkDate(year, month, day)) return -1;
         LocalDate ld = LocalDate.of(year, month, day);
         DayOfWeek d = ld.getDayOfWeek();
@@ -65,12 +67,14 @@ class Calculations {
             case SATURDAY -> 6;
         };
     }
-    public static int dayNumber (int year, int month, int day) {
+
+    public static int dayNumber(int year, int month, int day) {
         if (!Basics.checkDate(year, month, day)) return -1;
         LocalDate ld = LocalDate.of(year, month, day);
         return ld.getDayOfYear();
     }
-    public static int weekNumber (int year, int month, int day) {
+
+    public static int weekNumber(int year, int month, int day) {
         if (!Basics.checkDate(year, month, day)) return -1;
         LocalDate ld = LocalDate.of(year, month, day);
         return ld.get(WeekFields.of(Locale.getDefault()).weekOfYear()) + 1;
@@ -88,8 +92,10 @@ class Output {
             case 5 -> System.out.print("FRIDAY");
             case 6 -> System.out.print("SATURDAY");
             default -> System.out.print("invalid day");
-        };
+        }
+        ;
     }
+
     public static void printMonthName(int month) {
         switch (month) {
             case 1 -> System.out.print("JANUARY");
@@ -105,8 +111,10 @@ class Output {
             case 11 -> System.out.print("NOVEMBER");
             case 12 -> System.out.print("DECEMBER");
             default -> System.out.print("invalid month");
-        };
+        }
+        ;
     }
+
     public static void printNumberEnding(int n) {
         int rest = n % 10;
 
@@ -121,7 +129,7 @@ class Output {
         }
     }
 
-    public static void printDate (int year, int month, int day) {
+    public static void printDate(int year, int month, int day) {
         printDayName(Calculations.ymd2w(year, month, day));
         System.out.print(", ");
         printMonthName(month);
@@ -130,7 +138,7 @@ class Output {
         System.out.print(" " + year);
     }
 
-    public static void printStatistics (int year, int month, int day) {
+    public static void printStatistics(int year, int month, int day) {
         System.out.println("statistics for:");
         printDate(year, month, day);
         System.out.println();
@@ -149,8 +157,8 @@ class Output {
 }
 
 class Application {
-    public static void printCalendar (int year, int month, int day) {
-        // chatGPT
+    public static void printCalendar(int year, int month, int day) {
+        // this part is from chatGPT
         YearMonth ym = YearMonth.of(year, month);
         int daysInMonth = Basics.daysInMonth(year, month);
         LocalDate firstDay = ym.atDay(1);
@@ -184,7 +192,7 @@ class Application {
 }
 
 public class Calendars {
-    public void run () {
+    public void run() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter date: (y-m-d)");
         while (sc.hasNext()) {
@@ -192,8 +200,9 @@ public class Calendars {
             int m = sc.nextInt();
             int d = sc.nextInt();
 
-            Output.printStatistics(y,m,d);
-            Application.printCalendar(y,m,d);
+            Output.printStatistics(y, m, d);
+            Application.printCalendar(y, m, d);
         }
+        sc.close();
     }
 }
