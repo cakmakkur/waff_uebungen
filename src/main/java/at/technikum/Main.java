@@ -1,14 +1,13 @@
 package at.technikum;
 
 import at.technikum.InClassStuff.Apr3;
-import at.technikum.InClassStuff.apr31;
-import at.technikum.LearningStuff.*;
-import at.technikum.week5.Calendars;
 
 
 public class Main {
     public static void main(String[] args) {
-        Apr3.extractContent();
+        String input = "<h1><h1>This is a header</h1></h1><par>This is a par</par><div>This is a div</div><";
+        Apr3 a = new Apr3(input);
+        a.extractContent();
 
 
 /*        Calendars c = new Calendars();

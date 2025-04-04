@@ -18,6 +18,16 @@ public class Apr3Tests {
         assertFalse(Apr3.isATagTestHelper("<ab><<c>>"));
     }
 
+    @Test
+    void shouldReturnTrueIfStartingTag() {
+        assertTrue(Apr3.isATagTestHelper("<wqer4>"));
+        assertTrue(Apr3.isATagTestHelper("<wqe33r4>"));
+        assertFalse(Apr3.isATagTestHelper("</wqer4>"));
+        assertFalse(Apr3.isATagTestHelper("/wqer4>"));
+        assertFalse(Apr3.isATagTestHelper("</wqer4"));
+        assertFalse(Apr3.isATagTestHelper("<a/wqer4>"));
+    }
+
 
 /*    @Test
     void adderTest () {

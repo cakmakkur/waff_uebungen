@@ -1,41 +1,52 @@
 package at.technikum.InClassStuff;
 
-import java.sql.SQLOutput;
-import java.util.ArrayDeque;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Deque;
+import java.util.regex.*;
 
 public class Apr3 {
-    private static final String input = "<h1><h1>Sanjay has no watch</h1></h1><par>So wait for a while</par>";
+    private final String input;
 
-    public Apr3() {
-
-
+    public Apr3(String input) {
+        this.input = input;
     }
 
-    // THIS PART IS NOT DONE...
-    public static void extractContent() {
+    public void extractContent() {
+        TokenizedString ts = new TokenizedString(input);
+        ArrayList<String> lines = cleanTags(ts.getTokenArr());
 
-        // turning input string into String[] of its elements:
-        String[] tokenizedArray = returnTokenizedInput(input);
+        boolean isReady = false;
+        Pattern pattern = Pattern.compile(".*<[^>]+>.*");
+        Matcher matcher;
+        while (!isReady) {
+            ArrayList<String> tempArr = new ArrayList<>();
+            isReady = true;
+            for (String l : lines) {
+                matcher = pattern.matcher(l);
+                if (matcher.find()) {
+                    isReady = false;
+                    TokenizedString ts2 = new TokenizedString(l);
+                    tempArr.addAll(cleanTags(ts2.getTokenArr()));
+                } else {
+                    tempArr.add(l);
+                }
+            }
+            lines = tempArr;
+        }
 
-        // clean the headers:
-        boolean finishedCleaning = false;
-
-        String[] initialArray = cleanTags(tokenizedArray);
-        /*
-        while (!finishedCleaning) {
-
-        }*/
-
-        for (String ab : initialArray) {
+        System.out.println("Full string:");
+        System.out.println(ts.getFullString());
+        System.out.println("-------------------------");
+        System.out.println("Content between the tags:");
+        for (String ab : lines) {
             System.out.println(ab);
         }
     }
 
-    private static String[] cleanTags(String[] arr) {
-        // returns an array of strings, extracted material and invalid parts
+
+    private static @NotNull ArrayList<String> cleanTags(ArrayList<String> arr) {
+        // returns an arraylist of strings, extracted material and invalid parts
         String tag = null;
         String closingTag = null;
         StringBuilder sb = new StringBuilder();
@@ -77,7 +88,7 @@ public class Apr3 {
                 continue;
             }
 
-            // content found
+            // non-tag content found
             if (tag != null) {
                 sb.append(element);
             } else {
@@ -91,66 +102,19 @@ public class Apr3 {
             newArray.add("Invalid");
         }
 
-        return newArray.toArray(new String[0]);
+        return newArray;
     }
 
-/*    public void testRun() {
-        String[] a = returnTokenizedInput("<h1><h1>Sanjay has no watch</h1></h1><par>So wait for a while</par>");
-        String[] arr = tagContentExtractor(a);
-        for (String ab : arr) {
-            System.out.println(ab);
-        }
-    }*/
 
-
-    private static boolean isAStartingTag(String s) {
-        // can't be tag if it is shorter than 3 characters
-        if (s.length() < 3) return false;
-        if (s.charAt(1) == '/') return false;
-        for (int i = 0; i < s.length(); i++) {
-            if (i == 0 &&
-                    s.charAt(i) != '<') return false;
-            if (i > 0 &&
-                    i < s.length() - 1 &&
-                    (s.charAt(i) == '<' || s.charAt(i) == '>')) return false;
-            if (i == (s.length() - 1) &&
-                    s.charAt(i) != '>') return false;
-        }
-        return true;
+    private static boolean isAStartingTag(@NotNull String s) {
+        return s.matches("<[A-Za-z]+[A-Za-z0-9]*>");
     }
 
-    private static String[] returnTokenizedInput(String input) {
-        ArrayList<String> inputElements = new ArrayList<>();
-
-        char[] charArr = input.toCharArray();
-        int currentIndex = 0;
-
-        StringBuilder sb = new StringBuilder();
-
-        while (currentIndex < charArr.length) {
-            if (charArr[currentIndex] == '<') {
-                if (!sb.isEmpty()) {
-                    inputElements.add(sb.toString());
-                    sb = new StringBuilder();
-                }
-                sb.append('<');
-            } else if (charArr[currentIndex] == '>') {
-                sb.append('>');
-                inputElements.add(sb.toString());
-                sb = new StringBuilder();
-            } else {
-                sb.append(charArr[currentIndex]);
-            }
-            currentIndex++;
-        }
-        if (!sb.isEmpty()) {
-            inputElements.add(sb.toString());
-        }
-        // convert arraylist to arr
-        return inputElements.toArray(new String[0]);
+    private static boolean isAClosingTag(@NotNull String s) {
+        return s.matches("</[A-Za-z]+[A-Za-z0-9]*>");
     }
 
-    private static String returnClosingTag(String s) {
+    private static @NotNull String returnClosingTag(@NotNull String s) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {
             if (i == 1) {
@@ -161,19 +125,59 @@ public class Apr3 {
         return sb.toString();
     }
 
-    // delete later
-    private static void testFunc(String[] arr) {
-        System.out.println("****");
-        for (String s : arr) {
-            System.out.println(s);
-        }
-        System.out.println("****");
-    }
 
     // Test Helpers
     public static boolean isATagTestHelper(String s) {
         return isAStartingTag(s);
     }
 
+    public static boolean isAStringTestHelper(String a) {
+        return isAStartingTag(a);
+    }
+}
 
+
+// Tokenized String class. Stores full and tokenized string...
+class TokenizedString {
+    private final String fullString;
+    private final ArrayList<String> tokenArr;
+
+    public TokenizedString(String input) {
+        this.fullString = input;
+        tokenArr = tokenizeString(input);
+    }
+
+    private @NotNull ArrayList<String> tokenizeString(String s) {
+        ArrayList<String> tokens = new ArrayList<>();
+        Pattern pattern = Pattern.compile(("(<[^>]+>)|([^<]+)"));
+            /*
+            Outer parenthesis are for extracting the pattern data later
+            [^>] any character but >
+            second part is for the text between the tags
+            */
+        Matcher matcher = pattern.matcher(s);
+
+        while (matcher.find()) {
+            if (matcher.group(1) != null) {
+                // group(0) = the whole expression
+                // group(1) = the first parenthesis
+                // group(2) = the second parenthesis
+                tokens.add(matcher.group(1));
+            } else if (matcher.group(2) != null) {
+                String text = matcher.group(2).trim();
+                if (!text.isEmpty()) {
+                    tokens.add(text);
+                }
+            }
+        }
+        return tokens;
+    }
+
+    public String getFullString() {
+        return fullString;
+    }
+
+    public ArrayList<String> getTokenArr() {
+        return tokenArr;
+    }
 }
