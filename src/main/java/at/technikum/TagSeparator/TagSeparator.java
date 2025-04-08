@@ -1,14 +1,14 @@
-package at.technikum.InClassStuff;
+package at.technikum.TagSeparator;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.regex.*;
 
-public class Apr3 {
+public class TagSeparator {
     private final String input;
 
-    public Apr3(String input) {
+    public TagSeparator(String input) {
         this.input = input;
     }
 
@@ -181,3 +181,8 @@ class TokenizedString {
         return tokenArr;
     }
 }
+
+// for main
+/*        String input = "<h1><h1>This is a header</h1></h1><par>This is a par</par><div>This is a div</div><";
+        TagSeparator ts = new TagSeparator(input);
+        ts.extractContent();*/

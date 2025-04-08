@@ -1,16 +1,20 @@
 package at.technikum;
 
-import at.technikum.InClassStuff.Apr3;
+import at.technikum.CarInspectionExample.*;
+import at.technikum.TagSeparator.TagSeparator;
+
+import javax.swing.text.html.HTML;
 
 
 public class Main {
     public static void main(String[] args) {
-        String input = "<h1><h1>This is a header</h1></h1><par>This is a par</par><div>This is a div</div><";
-        Apr3 a = new Apr3(input);
-        a.extractContent();
+        Workshop w = new Workshop();
+        w.addWorker(new SeniorWorker("Tom"));
+        w.addWorker(new JuniorWorker("Tina"));
+        w.addWorker(new JuniorWorker("Tami"));
 
+        w.setJob(new CarInspection(new Audi(1999)));
 
-/*        Calendars c = new Calendars();
-        c.run();*/
+        w.printReport();
     }
 }
