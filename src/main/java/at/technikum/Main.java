@@ -2,6 +2,7 @@ package at.technikum;
 
 import at.technikum.CarInspectionExample.*;
 import at.technikum.LearningStuff.ObserverPattern;
+import at.technikum.LearningStuff.StrategyPattern;
 import at.technikum.TagSeparator.TagSeparator;
 import at.technikum.week5.HundredDoors;
 
@@ -19,7 +20,11 @@ public class Main {
         HundredDoors.run();
         w.printReport();*/
 
-        ObserverPattern o = new ObserverPattern();
-        o.run();
+/*        ObserverPattern o = new ObserverPattern();
+        o.run();*/
+
+        StrategyPattern sp = new StrategyPattern();
+        sp.run();
+
     }
 }
