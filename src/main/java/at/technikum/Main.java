@@ -1,6 +1,7 @@
 package at.technikum;
 
 import at.technikum.CarInspectionExample.*;
+import at.technikum.LearningStuff.DecoratorPattern;
 import at.technikum.LearningStuff.ObserverPattern;
 import at.technikum.LearningStuff.StrategyPattern;
 import at.technikum.TagSeparator.TagSeparator;
@@ -22,9 +23,12 @@ public class Main {
 
 /*        ObserverPattern o = new ObserverPattern();
         o.run();*/
-
+/*
         StrategyPattern sp = new StrategyPattern();
-        sp.run();
+        sp.run();*/
+
+        DecoratorPattern dp = new DecoratorPattern();
+        dp.run();
 
     }
 }
