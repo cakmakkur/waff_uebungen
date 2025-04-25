@@ -7,6 +7,7 @@ public class HundredDoors {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the number of doors:");
         int num = sc.nextInt();
+        sc.close();
         boolean[] doors = new boolean[num];
 
         for (int i = 0; i < num; i++) {
