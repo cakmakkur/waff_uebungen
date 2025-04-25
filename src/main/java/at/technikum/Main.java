@@ -1,6 +1,7 @@
 package at.technikum;
 
 import at.technikum.CarInspectionExample.*;
+import at.technikum.LearningStuff.CommandPattern;
 import at.technikum.LearningStuff.DecoratorPattern;
 import at.technikum.LearningStuff.ObserverPattern;
 import at.technikum.LearningStuff.StrategyPattern;
@@ -8,6 +9,7 @@ import at.technikum.TagSeparator.TagSeparator;
 import at.technikum.week5.HundredDoors;
 
 import javax.swing.text.html.HTML;
+import java.net.CookieManager;
 
 
 public class Main {
@@ -27,8 +29,11 @@ public class Main {
         StrategyPattern sp = new StrategyPattern();
         sp.run();*/
 
-        DecoratorPattern dp = new DecoratorPattern();
-        dp.run();
+/*        DecoratorPattern dp = new DecoratorPattern();
+        dp.run();*/
+
+        CommandPattern cp = new CommandPattern();
+        cp.run();
 
     }
 }
