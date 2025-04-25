@@ -1,4 +1,4 @@
-package at.technikum.LearningStuff;
+package at.technikum.LearningStuff.FactoryPattern;
 
 import java.util.Scanner;
 

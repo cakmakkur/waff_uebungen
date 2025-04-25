@@ -1,4 +1,4 @@
-package at.technikum.LearningStuff;
+package at.technikum.LearningStuff.FactoryPattern;
 
 public class Book {
     private final String name;
@@ -27,7 +27,7 @@ public class Book {
     }
 }
 
-class Novel extends at.technikum.LearningStuff.Book {
+class Novel extends Book {
     public Novel(String name, int pageNumber) {
         super(name, pageNumber);
     }
@@ -42,7 +42,7 @@ class Novel extends at.technikum.LearningStuff.Book {
     }
 }
 
-class Biography extends at.technikum.LearningStuff.Book {
+class Biography extends Book {
     public Biography(String name, int pageNumber) {
         super(name, pageNumber);
     }

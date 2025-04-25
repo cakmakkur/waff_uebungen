@@ -2,14 +2,14 @@ package at.technikum.LearningStuff;
 
 // Builder pattern example
 
-public class Burger {
+public class BuilderPatternBurgerMaker {
     private String patty;
     private int portion;
     private String sauce;
     private boolean onions;
     private boolean lettuce;
 
-    private Burger(BurgerBuilder bb) {
+    private BuilderPatternBurgerMaker(BurgerBuilder bb) {
         this.patty = bb.patty;
         this.portion = bb.portion;
         this.sauce = bb.sauce;
@@ -49,8 +49,8 @@ public class Burger {
             return this;
         }
 
-        public Burger cook() {
-            return new Burger(this);
+        public BuilderPatternBurgerMaker cook() {
+            return new BuilderPatternBurgerMaker(this);
         }
     }
 

@@ -1,4 +1,4 @@
-package at.technikum.LearningStuff;
+package at.technikum.LearningStuff.FactoryPattern;
 
 public class BookFactory {
     public enum BookTypes {

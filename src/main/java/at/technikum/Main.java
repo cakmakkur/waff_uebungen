@@ -1,10 +1,7 @@
 package at.technikum;
 
 import at.technikum.CarInspectionExample.*;
-import at.technikum.LearningStuff.CommandPattern;
-import at.technikum.LearningStuff.DecoratorPattern;
-import at.technikum.LearningStuff.ObserverPattern;
-import at.technikum.LearningStuff.StrategyPattern;
+import at.technikum.LearningStuff.*;
 import at.technikum.TagSeparator.TagSeparator;
 import at.technikum.week5.HundredDoors;
 
@@ -32,8 +29,10 @@ public class Main {
 /*        DecoratorPattern dp = new DecoratorPattern();
         dp.run();*/
 
-        CommandPattern cp = new CommandPattern();
-        cp.run();
+/*        CommandPattern cp = new CommandPattern();
+        cp.run();*/
 
+        StatePattern sp = new StatePattern();
+        sp.run();
     }
 }
